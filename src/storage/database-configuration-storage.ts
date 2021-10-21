@@ -4,6 +4,7 @@ Copyright 2018 Southern California Edison Company
 ALL RIGHTS RESERVED
 */
 
+import { StigDB } from "db";
 import ElectronStore = require("electron-store");
 
 export interface IDatabaseConfigOptions {
@@ -50,7 +51,12 @@ export class DatabaseConfigurationStorage {
             password: 'admin',
             usetoken: true,
         };
-        this.store.set('configs', {stig: initial});
+
+        const configmap: IDatabaseConfigMap = {
+            [initial.name]: initial,
+        };
+        
+        this.store.set('configs', configmap);
         this.current = 'stig';
     }
 
